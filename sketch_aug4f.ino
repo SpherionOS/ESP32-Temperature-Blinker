@@ -8,8 +8,8 @@
 #define LED_BUILTIN 18
 
 // Replace with your network credentials
-const char* ssid = "S-TFP";
-const char* password = "DieInTheDark.12";
+const char* ssid = "";
+const char* password = "";
 ezButton button(22);
 
 void setup() {
