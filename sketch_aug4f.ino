@@ -1,16 +1,21 @@
 
+// Required libraries
 #include <ezButton.h>
 #include <Arduino.h>
 #include <WiFi.h>
 #include <WiFiClientSecure.h>
 #include <HTTPClient.h>
 
+// Replace the number with pin you are using. For example, here I'm using pin 18
 #define LED_BUILTIN 18
 
 // Replace with your network credentials
-const char* ssid = "";
-const char* password = "";
+const char* ssid = "Network";
+const char* password = "Password";
+
+// The pin that has a jumper wire going to the positive end of the button
 ezButton button(22);
+
 
 void setup() {
   pinMode(LED_BUILTIN, OUTPUT);
@@ -33,14 +38,14 @@ void loop() {
   if (btnState == 0) {
        WiFiClientSecure *client = new WiFiClientSecure;
   if(client) {
-    // set secure client without certificate
+    // set secure client without certificate (needed for https bypass)
     client->setInsecure();
     //create an HTTPClient instance
     HTTPClient https;
 
-    //Initializing an HTTPS communication using the secure client
+    //Initializing an HTTPS communication using the secure client. Remove city and replace with your desired city
     Serial.print("[HTTPS] begin...\n");
-    if (https.begin(*client, "https://wttr.in/Brisbane?format=%t")) {  // HTTPS
+    if (https.begin(*client, "https://wttr.in/city?format=%t")) {  // HTTPS
       Serial.print("[HTTPS] GET...\n");
       // start connection and send HTTP header
       int httpCode = https.GET();
